@@ -14,35 +14,37 @@ services:
     restart: always
     environment:
       CASC_JENKINS_CONFIG: /jenkins.yaml
+      DOCKER_HOST: unix:///var/run/docker.sock
     volumes:
       - jenkins_home:/var/jenkins_home
       - ./jenkins/jenkins-iac/jenkins.yaml:/jenkins.yaml:ro
-  agent_arm64:
-    user: jenkins
-    init: true
-    platform: linux/arm64
-    container_name: jenkins-agent-arm64-1
-    image: jenkins/inbound-agent:latest
-    restart: always
-    volumes:
-      - agent_arm64_1_workdir:/home/jenkins
-    command: [ "-url", "http://jenkins:8080", "-workDir", "/home/jenkins/workDir", "-secret", "${JENKINS_AGENT_ARM64_1_SECRET}", "-name", "default-docker-01-arm64" ]
-    depends_on:
-      - jenkins
-  agent_amd64:
-    user: jenkins
-    init: true
-    platform: linux/amd64
-    container_name: jenkins-agent-amd64-1
-    image: jenkins/inbound-agent:latest
-    restart: always
-    volumes:
-      - agent_amd64_1_workdir:/home/jenkins
-    command: [ "-url", "http://jenkins:8080", "-workDir", "/home/jenkins/workDir", "-secret", "${JENKINS_AGENT_AMD64_1_SECRET}", "-name", "default-docker-01-amd64" ]
-    depends_on:
-      - jenkins
+      - /var/run/docker.sock:/var/run/docker.sock
+  # agent_arm64:
+  #   user: jenkins
+  #   init: true
+  #   platform: linux/arm64
+  #   container_name: jenkins-agent-arm64-1
+  #   image: jenkins/inbound-agent:latest
+  #   restart: always
+  #   volumes:
+  #     - agent_arm64_1_workdir:/home/jenkins
+  #   command: [ "-url", "http://jenkins:8080", "-workDir", "/home/jenkins/workDir", "-secret", "${JENKINS_AGENT_ARM64_1_SECRET}", "-name", "default-docker-01-arm64" ]
+  #   depends_on:
+  #     - jenkins
+  # agent_amd64:
+  #   user: jenkins
+  #   init: true
+  #   platform: linux/amd64
+  #   container_name: jenkins-agent-amd64-1
+  #   image: jenkins/inbound-agent:latest
+  #   restart: always
+  #   volumes:
+  #     - agent_amd64_1_workdir:/home/jenkins
+  #   command: [ "-url", "http://jenkins:8080", "-workDir", "/home/jenkins/workDir", "-secret", "${JENKINS_AGENT_AMD64_1_SECRET}", "-name", "default-docker-01-amd64" ]
+  #   depends_on:
+  #     - jenkins
 
 volumes:
   jenkins_home:
-  agent_amd64_1_workdir:
-  agent_arm64_1_workdir:
+  # agent_amd64_1_workdir:
+  # agent_arm64_1_workdir:
