@@ -12,8 +12,11 @@ services:
       - 127.0.0.1:8080:8080
       - 127.0.0.1:50000:50000
     restart: always
+    environment:
+      CASC_JENKINS_CONFIG: /jenkins.yaml
     volumes:
       - jenkins_home:/var/jenkins_home
+      - ./jenkins/jenkins-iac/jenkins.yaml:/jenkins.yaml:ro
   agent_arm64:
     user: jenkins
     init: true
