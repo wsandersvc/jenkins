@@ -1,0 +1,3 @@
+[submodule "jenkins/jenkins-iac"]
+	path = jenkins/jenkins-iac
+	url = https://github.com/wsandersvc/jenkins-iac
