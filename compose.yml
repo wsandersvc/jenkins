@@ -1,0 +1,47 @@
+services:
+  jenkins:
+    user: jenkins
+    container_name: jenkins
+    build:
+      context: ./jenkins
+      dockerfile: Dockerfile
+      platforms:
+        - linux/amd64
+        - linux/arm64
+    ports:
+      - 127.0.0.1:8080:8080
+      - 127.0.0.1:50000:50000
+    restart: always
+    volumes:
+      - jenkins_home:/var/jenkins_home
+  agent_arm64:
+    user: jenkins
+    init: true
+    platform: linux/arm64
+    container_name: jenkins-agent-arm64-1
+    image: jenkins/inbound-agent:latest
+    restart: always
+    volumes:
+      - agent_arm64_1_workdir:/home/jenkins
+    command: [ "-url", "http://jenkins:8080", "-workDir", "/home/jenkins/workDir", "-secret", "${JENKINS_AGENT_ARM64_1_SECRET}", "-name", "default-docker-01-arm64" ]
+    depends_on:
+      - jenkins
+  agent_amd64:
+    user: jenkins
+    init: true
+    platform: linux/amd64
+    container_name: jenkins-agent-amd64-1
+    image: jenkins/inbound-agent:latest
+    restart: always
+    volumes:
+      - agent_amd64_1_workdir:/home/jenkins
+    command: [ "-url", "http://jenkins:8080", "-workDir", "/home/jenkins/workDir", "-secret", "${JENKINS_AGENT_AMD64_1_SECRET}", "-name", "default-docker-01-amd64" ]
+    depends_on:
+      - jenkins
+
+
+
+volumes:
+  jenkins_home:
+  agent_amd64_1_workdir:
+  agent_arm64_1_workdir:
