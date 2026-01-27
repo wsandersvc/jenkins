@@ -1,5 +1,10 @@
 # jenkins
 
+## Backup
+```sh
+docker run --rm -it -v ./backup/:/backup/ -v jenkins_jenkins_home:/var/jenkins_home ubuntu:latest bash -c "cd /var/jenkins_home && tar cvzf /backup/backup.tar.gz ."
+```
+
 ## Tools
 
 ### Maven
