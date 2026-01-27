@@ -4,9 +4,3 @@ COPY --chown=jenkins:jenkins ./plugins.txt /usr/share/jenkins/ref/plugins.txt.ov
 RUN ln -s /usr/share/jenkins/ref/plugins.txt.override /usr/share/jenkins/ref/plugins.txt && jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt
 
 COPY --chown=jenkins:jenkins ./jenkins-iac/jenkins.yaml /usr/share/jenkins/ref/jenkins.yaml.override
-
-USER root
-
-RUN touch /var/run/docker.sock && chgrp jenkins /var/run/docker.sock
-
-USER jenkins
