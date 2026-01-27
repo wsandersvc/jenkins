@@ -33,7 +33,7 @@ services:
       - DISABLE_IPV6=0 #optional
       - DISTRIBUTION=0 #optional
       - EVENTS=1 #optional
-      - EXEC=0 #optional
+      - EXEC=1 #optional
       - IMAGES=1 #optional
       - INFO=0 #optional
       - LOG_LEVEL=info #optional
