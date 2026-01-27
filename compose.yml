@@ -22,9 +22,9 @@ services:
     image: lscr.io/linuxserver/socket-proxy:latest
     container_name: socket-proxy
     environment:
-      - ALLOW_START=0 #optional
-      - ALLOW_STOP=0 #optional
-      - ALLOW_RESTARTS=0 #optional
+      - ALLOW_START=1 #optional
+      - ALLOW_STOP=1 #optional
+      - ALLOW_RESTARTS=1 #optional
       - AUTH=0 #optional
       - BUILD=0 #optional
       - COMMIT=0 #optional
