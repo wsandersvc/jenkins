@@ -1,3 +1,4 @@
 .env
-/inbound-agent/JDK
 /backup
+/inbound-agent/JDK/
+.DS_Store
